@@ -1,0 +1,6 @@
+
+Take a test image aand apply mask and get patches for particular signature
+now test each patch with the given model: Either feed the images directly or convert the images to mat file and then test
+
+Mark all positive and negative patches.
+Show them on a gray scale image with positive with white and negative with gray color-  

@@ -1,0 +1,5 @@
+C:\ProgramData\Anaconda2;C:\ProgramData\Anaconda2\Library\mingw-w64\bin;C:\ProgramData\Anaconda2\Library\usr\bin;C:\ProgramData\Anaconda2\Library\bin;C:\ProgramData\Anaconda2\Scripts;
+
+C:\Program Files\Git\mingw64\bin;
+C:\Program Files\Git\usr\bin;
+C:\Program Files (x86)\Skype\Phone\;
