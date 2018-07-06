@@ -194,13 +194,17 @@ def klens():
     return max(klens)
 klens = klens()
 
-rowd = [[] for i in range(klens-1)]
+#%%
 rokey = []
 rnkey = []
+rorow = [[] for i in range(klens-1)]
+rnrow = [[] for i in range(klens-1)]
+rowd = []
+rdata = []
 rlen = []
+
 for key in dmain:    
     klt = len(dmain[key].split(','))  
-
     kv_data = dmain[key].replace("'", "")
     kv_data = kv_data.split(',')       
 
@@ -208,41 +212,36 @@ for key in dmain:
         rold = copy.copy(kv_data)
         rokey.append(key)
         for i in range(klens-1):
-            rowd[i].append(rold[i]) 
+            rorow[i].append(rold[i]) 
         #row0.append(rold[0])
         #row1.append(rold[1])
-        #row2.append(rold[2])
     if klt!= klens:
        rnew = kv_data       
        rnew.extend(repeat('', (klens-klt)))
        rnkey.append(key)
        for i in range(klens-1):
-           rowd[i].append(rnew[i])
-       #row0.append(rnew[0])
-       #row1.append(rnew[1])
-       #row2.append(rnew[2])
-#rkey = rokey+rnkey        
+           rnrow[i].append(rnew[i])      
+rkey = rokey+rnkey        
+#print len(rkey)        #print rkey              
+           
+for i in range(klens-1):
+    rowd = rorow[i]+rnrow[i]
+    rlen.append(len(rowd))
+    rdata.append(rowd)
+#print rdata[0:3]
+#print rlen
+#print len(rlen)
+#%%
+#for i in range(klens-1):                
+##    #print rdata[i]
 
-#print len(rkey)
-#print rkey   
-for i in range(klens-1):                
-    print rowd[i]
-    rlen.append(len(rowd[i]))
-#print row1
-#print row2
-print rlen
-#%% #write to excel code
-#for i in range(klens-1):    
-#    with open(fname_, "rb") as fr, open(fname_, "wb") as fw:                 
-#        #reader= csv.reader(fr)           
-#         
-#        writer= csv.writer(fw, delimiter= ';') 
-#        writer.writerow(dmain.keys())
-#        #for key in dmain:
-##        writer.writerow([rowd[i]])
-#        print rowd[i]
-#	
-#	
+#write to excel code
+with open(fname_, "wb") as fw:        
+    writer= csv.writer(fw, delimiter= ';') 
+    writer.writerow(rkey)   
+    for i in range(klens-1): 
+        writer.writerow(rdata[i])
+ 
 #%%                  
 fr.close()
 print('\n')        
