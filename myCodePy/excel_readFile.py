@@ -1083,7 +1083,60 @@ for dirName, subDir, fList in walk(path):
             f.close()             
             print myList
             
+                        #pprint fdict_
+            ndict_= sorted(myList)
+#            print ndict_
+            dnct = dict(map(str.strip,x) for d in ndict_ for x in d.items())
+#            print '-'*80
             
+            #Already existing header-values
+            dfctL = []            
+#            print fname in (dfct['file_name'].replace("'", "")).split(',')
+            indx = (dfct['file_name'].replace("'", "")).split(", ").index(fname)            
+            for key in dfct:
+                 valL = (dfct[key].replace("'", "")).split(',')[indx]
+                 dfctL.append(valL)
+            
+            def nklen():
+            #get the key length                 
+                 for key in sorted(dnct):
+                       nklen = len((dnct[key].replace("'", "")).split(','))                      
+                 return nklen
+            nklen = nklen()
+#%%              
+            #header-values to be added         
+            with open(fname_, "wb") as fw:     #write keys
+                 writer= csv.writer(fw, delimiter= ';') 
+                 writer.writerow(sorted(dnct.keys()))
+                 
+            dnctR1 = []  
+            dnctR = [[] for x in range(nklen)]
+            
+            for key in sorted(dnct):                  
+                 if nklen is 1:    #for single new values no repeat required              
+                      dnctR1.append(dnct[key].replace("'", ""))              
+            if nklen is 1:
+                 dfnLRf = dfctL+dnctR1       #print dfnLRf 
+                 print 'Writing the only 1 Row found...'
+#                 print len(dfnLRf)
+                      
+            for key in sorted(dnct):                        
+                 if nklen is not 1:     #but here, repeat the old values to nklen count
+                      dfnLR = [[] for x in range(nklen)]
+                      for i in range(nklen):
+                           dnctR[i].append(dnct[key].replace("'", "").split(',')[i])
+                           dfnLR[i] = dfctL+dnctR[i]            
+            if nklen is not 1:
+#                 for i in range(nklen):   #print dfnLR[i]
+                 print '%s Writing the %s Rows found...'%(nklen)
+#                 print len(dfnLR[i])
+            
+            
+            with open(fname_, "ab") as fw:    #append rows of data
+                 writer= csv.writer(fw, delimiter= ';')
+                 writer.writerow(dfnLRf)
+                 for i in range(nklen):
+                      writer.writerow(dfnLR[i]) 
                
 print('\n')       
 toc=time.time()
