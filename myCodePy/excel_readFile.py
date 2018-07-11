@@ -1108,16 +1108,18 @@ for dirName, subDir, fList in walk(path):
                        nklen = len((dnct[key].replace("'", "")).split(','))                      
                  return nklen
             nklen = nklen()
-#%%              
-#            header-values to be added
-            if count== 1:
+            
+         if count== 1:
                  with open(fname_, "wb") as fw:     #write keys
                       print 'Writing Keys Once..'
-                      writer= csv.writer(fw, delimiter= ';') 
-                      writer.writerow(sorted(dnct.keys()))
-#                 
+                      writer= csv.writer(fw, delimiter= ';')
+                      ks = dfct.keys()+sorted(dnct.keys())
+                      writer.writerow(ks)
+                      
+#%%           
+             # header-values to be added    
             dnctRa = []  
-            dnctR = [[] for x in range(nklen)]            
+            dnctR = [[] for x in range(nklen)] 
             for key in sorted(dnct):                  
                  if nklen is 1:    #for single new values no repeat required              
                       dnctRa.append(dnct[key].replace("'", ""))              
