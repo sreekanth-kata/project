@@ -38,8 +38,7 @@ def existDictFn():
                         da_te = da_te[:numofrow]                    
                     count = 0
                     count +=1
-                    if count==1:
-                         if(da_te[-1]):
+                    if (da_te[-1] and count==1):                        
                               da_te =( ', '.join( repr(e) for e in da_te ))                          
 #                              print da_te                    
                               fdict = {'date':da_te}        
