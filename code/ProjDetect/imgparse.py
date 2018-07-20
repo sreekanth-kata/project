@@ -38,7 +38,7 @@ def printDetails(filename,TAG):
 	mask.save(fmask, "PNG")
 	#os._exit(0)	
 
-files = glob.glob(("{}/Tobacco800_Groundtruth_v2.0/XMLGroundtruth_v2.0/*.xml").format(dataset_path))
+files = glob.glob(("{}/Tobacco800_Groundtruth_v2.0/XMLGroundtruth_v2.0/*.xml").format(dataset_path))	#glob.glob - globbing Linux style(wildcards)
 for file1 in files:
 	print ('\nProcessing file : {}').format(os.path.basename(file1))
 	with open(file1) as fd:
