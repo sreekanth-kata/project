@@ -840,6 +840,8 @@ for dirName, subDir, fList in walk(path):
             
             else:
                  print 'File "{}" not in tmpFList'.format(fname)
+                 with open("fileNot.txt","ab") as fN:
+                     fN.write(fname)                     
                  NotinFile+=1
 #%%    
 print 'Files-Count: {}\nOne-Row-TCount:{}\nRepeated-Rows-TCount: {}'.format(count, oneRowCt, RowCt)
