@@ -1,34 +1,37 @@
-import time, csv
+import time, csv, datetime
 import temp_Daten3Dict
-from os import walk, chdir
-from os.path import join#, listdir, getcwd
+#rootDir= 'Z:\MESSDATEN'
+#fname_= rootDir+ '\\temp_daten3.csv'
 
-rootDir = 'D:\Skata\Sreekanth_pc'
-path = rootDir + '\messung'
+from os import walk, chdir
+from os.path import join, basename#, listdir, getcwd
+
+rootDir = 'Z:\MESSDATEN'
+path = rootDir+'\Dai'
 fname_= path+ '\\temp_daten3.csv'
 
 fdict_ = temp_Daten3Dict.existDictFn()
 dfct = dict(map(str.strip,x) for d in fdict_ for x in d.items())
+print datetime.datetime.now().time()
 tic=time.time()
-i=count=0; oneRowCt=0; RowCt=0
+i=count=0; oneRowCt=0; RowCt=0; NotinFile=0
 
 for dirName, subDir, fList in walk(path):    
     for fname in fList:
-        if fname.endswith('.xls'):
+        if fname.endswith('.xls') and basename(dirName) == fname.split(".")[0]:
+#            if count>4:  #                 break
             fullpath = join(path, dirName)
-            chdir(fullpath)
-            print ('-'*80)            
-            print('\nMoved to CurDir: %s\nFound File:%s --> %s' %(dirName, count, fname))
+            chdir(fullpath) #print ('-'*80)       
+           
+            print('\nMoved to CurDir: %s\nFound File:%d --> %s' %(dirName, count, fname))            
             count +=1            #print('Curdir is:%s'%getcwd         
-#            if count>2:      #                 break
        
             f = open(fname)
             r = csv.reader(f)
             data = list(r)          #print(data) #print('\n')
-            header=data[1][0].split("\t")       #print(len(header))#print(header)
-            #            unit=data[2][0].split("\t") #print(unit) #print(unit) 
+            header=data[1][0].split("\t")       #print(len(header))#print(header)  #unit=data[2][0].split("\t") #print(unit) #print(unit) 
                         
-            for i in range(0,len(data)):                #for rows
+            for i in range(0,len(data)):    #for rows
                  if [len(j) for j in [s.replace('\t', '') for s in data[i]]][0]:
                       numofrow=i      #print(numofrow)    
                               
@@ -40,13 +43,13 @@ for dirName, subDir, fList in walk(path):
             ti_pls1_cyl2=[]; ti_pls2_cyl2=[]; ti_pls3_cyl2=[]; ti_pls4_cyl2=[]; ti_pls1_cyl3=[]; ti_pls2_cyl3=[]; ti_pls3_cyl3=[]; ti_pls4_cyl3=[]; soi_pls1_cyl0=[]; soi_pls2_cyl0=[]; soi_pls3_cyl0=[]; soi_pls4_cyl0=[]; soi_pls1_cyl1=[]; soi_pls2_cyl1=[]; soi_pls3_cyl1=[]; soi_pls4_cyl1=[]; 
             soi_pls1_cyl2=[]; soi_pls2_cyl2=[]; soi_pls3_cyl2=[]; soi_pls4_cyl2=[]; soi_pls1_cyl3=[]; soi_pls2_cyl3=[]; soi_pls3_cyl3=[]; soi_pls4_cyl3=[]; ifile=[];
           
-            for i in range(0,numofrow-2):    #for cols      
+            for i in range(0,numofrow-2):    #for cols
                  for j in range(len(header)):                    
                       daten[i][j]=data[i+3][0].split("\t")[j]     #print(daten[i][j])                   
                       ndict = {}   #Initialize empty dictionary  
                       
                       def funReturn():
-          #           function to create dictionary key-value pairs with header-value dict list
+          #           function to create dictionary key-value pairs with header-value dict-list
                            if(j==header.index('N_M')): 
                                 N_M_val.append(daten[i][header.index('N_M')])
                                 if i==numofrow-3:
@@ -778,61 +781,68 @@ for dirName, subDir, fList in walk(path):
             
             #Already existing header-values retrieval
             dfctL = []            
-#            print fname in (dfct['file_name'].replace("'", "")).split(',')
-            indx = (dfct['file_name'].replace("'", "")).split(", ").index(fname)            
-            for key in dfct:
-                 valL = (dfct[key].replace("'", "")).split(',')[indx]
-                 dfctL.append(valL)
+#            print fname in (dfct['file_name'].replace("'", "")).split(',')            
+            tmpFList = dfct['file_name'].replace("'", "").split(',')
+            tmpFList = [x.strip() for x in tmpFList]
+            if fname in tmpFList:
+                 indx = tmpFList.index(fname)            
+                 for key in dfct:
+                      valL = (dfct[key].replace("'", "")).split(',')[indx]
+                      dfctL.append(valL)
             
-            def nklen():
-            #get the key length                 
-                 for key in sorted(dnct):
-                       nklen = len((dnct[key].replace("'", "")).split(','))                      
-                 return nklen
-            nklen = nklen()
-                        
-            if count== 1:
-                 with open(fname_, "wb") as fw:     #write keys
-                      print 'Writing Keys Once..'
-                      writer= csv.writer(fw, delimiter= ';')
-                      ks = dfct.keys()+sorted(dnct.keys())
-                      writer.writerow(ks)
-           
-            dnctRa = []  
-            dnctR = [[] for x in range(nklen)] 
+                 def nklen():
+                 #get the key length                 
+                      for key in sorted(dnct):
+                            nklen = len((dnct[key].replace("'", "")).split(','))                      
+                      return nklen
+                 nklen = nklen()
+                             
+                 if count== 1:
+                      with open(fname_, "wb") as fw:     #write keys
+                           print 'Writing Keys Once..'
+                           writer= csv.writer(fw, delimiter= ';')
+                           ks = dfct.keys()+sorted(dnct.keys())
+                           writer.writerow(ks)
+                
+                 dnctRa = []  
+                 dnctR = [[] for x in range(nklen)] 
 #%%         
-            # header-values to be added    
-            for key in sorted(dnct):                  
-                 if nklen is 1:    #for single new values no repeat required              
-                      dnctRa.append(dnct[key].replace("'", ""))         
-            if nklen is 1:
-                 dfnLRA = dfctL+dnctRa    
-                 print 'Writing only 1-Row found..'
-                 oneRowCt+=nklen
-#                 print dfnLRA     #print len(dfnLRA)
-                 with open(fname_, "ab") as fw:    #append rows of data
-                      writer= csv.writer(fw, delimiter= ';')
-                      writer.writerow(dfnLRA)
-                      
-            for key in sorted(dnct):     
-#               print key
-                 if nklen is not 1:     #but here, repeat the old values to nklen count
-                      dfnLR = [[] for x in range(nklen)]
-                      for i in range(nklen):
-                           dnctR[i].append(dnct[key].replace("'", "").split(',')[i])
-                           dfctL = [item.strip() for item in dfctL] 
-                           dnctR[i] = [item.strip() for item in dnctR[i]]
-                           dfnLR[i] = dfctL+dnctR[i]            
-            if nklen is not 1:
-                 print 'Writing %s-Rows found..'%(nklen)
-                 RowCt+=nklen
-                 for i in range(nklen):    
-#                      print dfnLR[i]      print len(dfnLR[i])                      
+                 # header-values to be added    
+                 for key in sorted(dnct):                  
+                      if nklen is 1:    #for single new values no repeat required              
+                           dnctRa.append(dnct[key].replace("'", ""))         
+                 if nklen is 1:
+                      dfnLRA = dfctL+dnctRa    
+                      print 'Writing only 1-Row found..'
+                      oneRowCt+=nklen
+     #                 print dfnLRA     #print len(dfnLRA)
                       with open(fname_, "ab") as fw:    #append rows of data
                            writer= csv.writer(fw, delimiter= ';')
-                           writer.writerow(dfnLR[i])    
+                           writer.writerow(dfnLRA)
+                           
+                 for key in sorted(dnct):     
+     #               print key
+                      if nklen is not 1:     #but here, repeat the old values to nklen count
+                           dfnLR = [[] for x in range(nklen)]
+                           for i in range(nklen):
+                                dnctR[i].append(dnct[key].replace("'", "").split(',')[i])
+                                dfctL = [item.strip() for item in dfctL] 
+                                dnctR[i] = [item.strip() for item in dnctR[i]]
+                                dfnLR[i] = dfctL+dnctR[i]            
+                 if nklen is not 1:
+                      print 'Writing %s-Rows found..'%(nklen)
+                      RowCt+=nklen
+                      for i in range(nklen):    
+     #                      print dfnLR[i]      print len(dfnLR[i])                      
+                           with open(fname_, "ab") as fw:    #append rows of data
+                                writer= csv.writer(fw, delimiter= ';')
+                                writer.writerow(dfnLR[i])   
+            
+            else:
+                 print 'File "{}" not in tmpFList'.format(fname)
+                 NotinFile+=1
 #%%    
-print('\n')       
-print 'Files-Count: %s\nOne-Row-TCount:%s\nRepeated-Rows-TCount: %s\n'%(count, oneRowCt, RowCt)
+print 'Files-Count: {}\nOne-Row-TCount:{}\nRepeated-Rows-TCount: {}'.format(count, oneRowCt, RowCt)
+print '\tFiles-Not-in-tmpFList-TCount: {}'.format(NotinFile)
 toc=time.time()
 print(str("%.2f" %(toc-tic)) + ' seconds elapsed')    
