@@ -8,8 +8,8 @@ from os.path import expanduser
 # 1. clone project.git in HOME dir
 # 2. Enjoy :)
 
-home = expanduser("~")
-dataset_path = ('{}/project/datasets/Tobacco800').format(home)
+home = expanduser("~")		#'~' refers home, change it to 'dataset_path' with 'expanduser'
+dataset_path = ('{}/project/datasets/Tobacco800').format(home) 	#home = Only a Folder that has the path after braces.
 
 def printDetails(filename,TAG):
 	filename = os.path.basename( filename )
@@ -42,21 +42,21 @@ files = glob.glob(("{}/Tobacco800_Groundtruth_v2.0/XMLGroundtruth_v2.0/*.xml").f
 for file1 in files:
 	print ('\nProcessing file : {}').format(os.path.basename(file1))
 	with open(file1) as fd:
-		doc = xmltodict.parse(fd.read())
+		doc = xmltodict.parse(fd.read())	 #Read xml converted to dict.(save as doc)
 		try:
-			TAG = doc['GEDI']['DL_DOCUMENT']['DL_PAGE']['DL_ZONE']
+			TAG = doc['GEDI']['DL_DOCUMENT']['DL_PAGE']['DL_ZONE']      #doc has 4 indices/tags(index)
 			try:
 				if TAG[0]['@gedi_type'] == 'DLSignature':		
-					printDetails(file1, TAG[0])
+					printDetails(file1, TAG[0])	#check TAG[0]
 				elif TAG[1]['@gedi_type'] == 'DLSignature':
-					printDetails(file1, TAG[1]);
+					printDetails(file1, TAG[1]); 	#check TAG[1] and call printDetails() Fn
 				else:
 					print ('TRY :: file {} skipped').format(os.path.basename(file1))
 			except:
-				if TAG['@gedi_type'] == 'DLSignature':
+				if TAG['@gedi_type'] == 'DLSignature': 		#check any other tag/index that matches signature 
 					printDetails(file1, TAG)
 				else:
 					print ('EXCEPT : file {} skipped').format(os.path.basename(file1))		
-		except:
+		except:								#files with no indices 
 			print ('No DLZone for {}').format(os.path.basename(file1))
 			continue
