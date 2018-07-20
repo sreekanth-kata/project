@@ -19,9 +19,6 @@ i=count=0; oneRowCt=0; RowCt=0; NotinFile=0
 for dirName, subDir, fList in walk(path):    
     for fname in fList:
         if fname.endswith('.xls') and basename(dirName) == fname.split(".")[0]:
-            #count +=1
-            #if count == [0, 2, 3, 4, 5, 6]:
-            #     pass
 #            if count>4:  #                 break
             fullpath = join(path, dirName)
             chdir(fullpath) #print ('-'*80)       
