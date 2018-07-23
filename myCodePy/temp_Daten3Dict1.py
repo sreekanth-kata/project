@@ -35,7 +35,7 @@ def existDictFn():
                       if i==numofrow-3:
 #                           print da_te 
                            date= (", ".join(repr(e) for e in da_te)) 
-                           ndict = {'date':date}    #create dictionary by adding header-values
+                           ndict = {'date':date}   
                            return ndict
                       
                  if(j==header.index('time')): 
@@ -43,35 +43,35 @@ def existDictFn():
                       if i==numofrow-3:
 #                           print ti_me 
                            time= (", ".join(repr(e) for e in ti_me)) 
-                           ndict = {'time':time}    #create dictionary by adding header-values
+                           ndict = {'time':time}   
                            return ndict
                  if(j==header.index('file_name')): 
                       f_name.append(daten[i][header.index('file_name')])
                       if i==numofrow-3:
 #                           print f_name 
                            file_name= (", ".join(repr(e) for e in f_name)) 
-                           ndict = {'file_name':file_name}    #create dictionary by adding header-values
+                           ndict = {'file_name':file_name}   
                            return ndict
                  if(j==header.index('file_path')): 
                       f_path.append(daten[i][header.index('file_path')])
                       if i==numofrow-3:
 #                           print f_path 
                            file_path= (", ".join(repr(e) for e in f_path)) 
-                           ndict = {'file_path':file_path}    #create dictionary by adding header-values
+                           ndict = {'file_path':file_path}  
                            return ndict
                  if(j==header.index('Measurement')): 
                       measr.append(daten[i][header.index('Measurement')])
                       if i==numofrow-3:
 #                           print measr 
                            Measurement= (", ".join(repr(e) for e in measr)) 
-                           ndict = {'Measurement':Measurement}    #create dictionary by adding header-values
+                           ndict = {'Measurement':Measurement}   
                            return ndict
                  if(j==header.index('SR')): 
-                      s_r.append(daten[i][header.index('date')])
+                      s_r.append(daten[i][header.index('SR')])
                       if i==numofrow-3:
 #                           print s_r 
-                           Measurement= (", ".join(repr(e) for e in s_r)) 
-                           ndict = {'Measurement':Measurement}    #create dictionary by adding header-values
+                           SR = (", ".join(repr(e) for e in s_r)) 
+                           ndict = {'Measurement':SR}    
                            return ndict
                  if(j==header.index('rpm')): 
                       r_pm.append(daten[i][header.index('rpm')])
@@ -85,14 +85,14 @@ def existDictFn():
                       if i==numofrow-3:
 #                           print fu_el 
                            fuel= (", ".join(repr(e) for e in fu_el)) 
-                           ndict = {'fuel':fuel}    #create dictionary by adding header-values
+                           ndict = {'fuel':fuel}  
                            return ndict
                  if(j==header.index('OPP')): 
                       o_pp.append(daten[i][header.index('OPP')])
                       if i==numofrow-3:
 #                           print o_pp 
                            OPP= (", ".join(repr(e) for e in o_pp)) 
-                           ndict = {'OPP':OPP}    #create dictionary by adding header-values
+                           ndict = {'OPP':OPP}    
                            return ndict
                      
 #                 
