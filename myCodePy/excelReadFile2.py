@@ -784,8 +784,7 @@ for dirName, subDir, fList in walk(path):
                            
                  #Already existing header-values retrieval                             
                  fdict = temp_DatenFDict.existDictFn(fname)
-                 print fdict  
-                 break
+                 #print fdict
                
                  if count== 1:
                       with open(fname_, "wb") as fw:     #To write keys; needs atleast one file to be written in 1st count
