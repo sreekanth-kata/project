@@ -823,7 +823,7 @@ for dirName, subDir, fList in walk(path):
                       for i in range(nklen):    #print dfnLR[i]      #print len(dfnLR[i])                      
                            with open(fname_, "ab") as fw:    #append rows of data
                                 writer= csv.writer(fw, delimiter= ';')
-#                                writer.writerow(dfnLR[i])   
+                                writer.writerow(dfnLR[i])   
 #%%             
             else: 
                  print 'File "{}" is not in required format'.format(fname)
