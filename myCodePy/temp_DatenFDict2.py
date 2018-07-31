@@ -7,42 +7,41 @@ rootDir = 'Z:\MESSDATEN'
 #%%
 def existDictFn(fname):   
      if ('\xb0' or '\xef\xbf\xbd') not in fname:          
-          fList = fname.split('_') 
-#          if fList[5]!='1000rpm':
+          fList = fname.split('_')
           try:
                KH_indx = fList.index('KH')   #test 'KH' as index
                
                da_te = fList[KH_indx-3]     
-               ti_me = fList[KH_indx-2]                         
-               r_pm = fList[KH_indx+1]      
-               if r_pm == '1000rpm':
-                    r_pm = r_pm.split('r')[0]
+               ti_me = fList[KH_indx-2]      
+               r_pm = fList[KH_indx+1]     
+               sr = fList[KH_indx+3]
                
+               if r_pm == '1000rpm':
+                    r_pm = r_pm.split('r')[0]               
                if fList[KH_indx+2] is 'SK' or 'RON95' or 'NK' or 'E10':
                     f_uel = fList[KH_indx+2]
                else: 
-                    print 'Fuel Type unknown in path {}'.format(fname)                         
-                    
-               sr = fList[KH_indx+3]          
-               opp = fList[KH_indx+4]                      
-               
+                    print 'Fuel Type unknown in path {}'.format(fname)
+               opp = fList[KH_indx+4]
+               if 'Spacer' in fname:
+                    opp = fList[KH_indx+6] 
           except:
                A_indx = fList.index('A')     #test 'A' as index, when 'KH' fails
                
                da_te = fList[A_indx-2]     
-               ti_me = fList[A_indx-1]         
-               
-               r_pm = fList[A_indx+1].strip('KH')                  
+               ti_me = fList[A_indx-1]
+               r_pm = fList[A_indx+1].strip('KH')  
+               sr = fList[A_indx+3]   
+                                              
                if fList[A_indx+2] is 'SK' or 'RON95' or 'NK' or 'E10':
                     f_uel = fList[A_indx+2]
                else: 
-                    print 'Fuel Type unknown in path {}'.format(fname)    
-                    
-               sr = fList[A_indx+3]          
-               opp = fList[A_indx+4]   
-          
+                    print 'Fuel Type unknown in path {}'.format(fname)
+               opp = fList[A_indx+4]    
+               if 'Spacer' in fname:
+                    opp = fList[A_indx+6]                     
           finally:        
-               measr = 'catalyst heating'                       
+               measr = 'catalyst heating' 
                fdict = OrderedDict((zip(('date','time','file_name','filepath','Measurement','rpm','fuel','SR','OPP'), 
                                  (da_te, ti_me, fname, rootDir, measr, r_pm, f_uel, sr, opp))))               
                return fdict  
@@ -75,11 +74,10 @@ def existDictFn(fname):
                print 'Fuel Type unknown in FILE path.'        
           
           da_te = fList[KH_indx-3].encode('ascii', 'ignore')
-          ti_me = fList[KH_indx-2].encode('ascii', 'ignore')          
+          ti_me = fList[KH_indx-2].encode('ascii', 'ignore') 
           r_pm = fList[KH_indx+1].encode('ascii', 'ignore')           
           
-          measr = 'catalyst heating'
-          
+          measr = 'catalyst heating'          
           fdict = OrderedDict((zip(('date','time','file_name','filepath','Measurement','rpm','fuel','SR','OPP'), 
                             (da_te, ti_me, fnameNew.encode('ascii', 'ignore'), rootDir, measr, r_pm, f_uel, sr, opp))))     
           return fdict
