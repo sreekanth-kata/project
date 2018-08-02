@@ -17,8 +17,7 @@ for dirName, subDir, fList in walk(path):
             fullpath = join(path, dirName)
             chdir(fullpath) #print ('-'*80)       
            
-            print('\nMoved to CurDir: %s\nFound File:%d --> %s' %(dirName, count, fname)) 
-            
+            print('\nMoved to CurDir: %s\nFound File:%d --> %s' %(dirName, count, fname))             
             count +=1            #print('Curdir is:%s'%getcwd                
             
             if 'OPP' in fname:                
@@ -767,7 +766,7 @@ for dirName, subDir, fList in walk(path):
                                 if 'AS_SOI_MES_CUS_PLS_2_CYL_3_M' in ndict:    myListT.append(ndict)
                                 if 'AS_SOI_MES_CUS_PLS_3_CYL_3_M' in ndict:    myListT.append(ndict)
                                 if 'AS_SOI_MES_CUS_PLS_4_CYL_3_M' in ndict:    myListT.append(ndict)
-                                if 'ISY_STRING_IFILE_NAME' in ndict:	         myListT.append(ndict)
+                                if 'ISY_STRING_IFILE_NAME' in ndict:	          myListT.append(ndict)
                            
                  f.close()
 #                 print myListT
@@ -784,7 +783,7 @@ for dirName, subDir, fList in walk(path):
                            
                  #Already existing header-values retrieval                             
                  fdict = temp_DatenFDict.existDictFn(fname)
-                 #print fdict
+#                 print fdict  
                
                  if count== 1:
                       with open(fname_, "wb") as fw:     #To write keys; needs atleast one file to be written in 1st count
@@ -800,9 +799,8 @@ for dirName, subDir, fList in walk(path):
 #%%   
                  for key in sorted(dnct):                  
                       if nklen is 1:    #for single new values no repeat required              
-                           dnctRa.append(dnct[key].replace("'", ""))
-                           if nklen is 1:
-                                dfnLRA = dfctL+dnctRa                               
+                           dnctRa.append(dnct[key].replace("'", ""))                           
+                           dfnLRA = dfctL+dnctRa                               
                  if nklen is 1:                 
                       print 'Writing only 1-Row found..'
                       oneRowCt+=nklen        #  print dfnLRA      #print len(dfnLRA)                 
