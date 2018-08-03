@@ -772,7 +772,7 @@ for dirName, subDir, fList in walk(path):
 #                 print myListT
 #%%                        
                  ndict_= sorted(myListT)
-                 dnct = dict(map(str.strip,x) for d in ndict_ for x in d.items())
+                 dnct = dict(map(str.strip,x) for d in ndict_ for x in d.items())    #print dnct['N_M']
                  
                  def nklen():
                  #get the key length to know the nr. of rows in file               
