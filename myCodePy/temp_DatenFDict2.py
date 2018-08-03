@@ -22,7 +22,7 @@ def existDictFn(fname):
                     r_pm = r_pm.split('r')[0]  
                     
                opp = fList[KH_indx+4]  
-               if fList[KH_indx+4] == 'SK': # 2 'SK' in fList
+               if fList[KH_indx+4] == 'SK': # 2 'SK' in fList, second one after sr
                     opp = fList[KH_indx+6]    
                if 'SR' not in sr or 'OPP' not in opp:                    
                     sr = fList[KH_indx+4]
@@ -32,7 +32,6 @@ def existDictFn(fname):
                if 'Spacer_1mm' in fname:
                     opp = fList[KH_indx+6]  
                
-#                  
           except:
                A_indx = fList.index('A')   #test 'A' as index, when 'KH' fails
                
