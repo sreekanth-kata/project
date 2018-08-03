@@ -63,7 +63,8 @@ def existDictFn(fname):
           
      else:     #2 types of degree exists; one of them is with extraNumber after fuel
 #          degree = u"\u00b0"
-          KH_indx = fList.index('KH')    #test 'KH' as index    
+          KH_indx = fList.index('KH')    #test 'KH' as index  (for eg: KH is KH1000)
+                  
                
           da_te = fList[KH_indx-3]
           ti_me = fList[KH_indx-2] 
